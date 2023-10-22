@@ -1,32 +1,28 @@
 {
-    // See https://go.microsoft.com/fwlink/?LinkId=733558
-    // for the documentation about the tasks.json format
-    "version": "2.0.0",
-    "tasks": [
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
         {
-            "label": "init",
-            "type": "shell",
-            "command": "sudo -E env PATH=$PATH bash ${workspaceFolder}/build.sh init"
-        },
-        {
-            "label": "build_debug",
-            "type": "shell",
-            "command": "bash build.sh debug",
-            "problemMatcher": [],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
-        },
-        {
-            "label": "build_release",
-            "type": "shell",
-            "command": "bash build.sh release"
-        },
-        {
-            "label": "gen_parser",
-            "type": "shell",
-            "command": "cd ${workspaceFolder}/src/observer/sql/parser && bash gen_parser.sh"
+            "name": "(gdb) attach",
+            "type": "cppdbg",
+            "request": "attach",
+            "program": "${workspaceFolder}/build_debug/bin/observer",
+            "processId":"${command:pickProcess}",
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "为 gdb 启用整齐打印",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description":  "将反汇编风格设置为 Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
         }
     ]
 }
